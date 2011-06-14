@@ -2,7 +2,7 @@ Installation
 
 Create directory:
 
-    ~/bin/dotfiles/
+    mkdir ~/bin/dotfiles/
 
 Clone repository:
 
