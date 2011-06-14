@@ -1,0 +1,15 @@
+Installation
+
+Create directory:
+
+    ~/bin/dotfiles/
+
+Clone repository:
+
+    git clone git://github.com/mikero/dotfiles.git
+
+Symlink to .vimrc and .vim:
+
+    ln -nfs ~/bin/dotfiles/vimrc ~/.vimrc
+    ln -nfs ~/bin/dotfiles/vim ~/.vim
+
