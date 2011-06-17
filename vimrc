@@ -73,4 +73,11 @@ let mapleader=','
 " bind control-l to hashrocket
 imap <C-l> <Space>=><Space>
 
+" run current file
+map <leader>r :! ./%<cr>
+
+" use tabular to align the equals operator
+map <leader>t :Tab /=<cr>
+
+
 
