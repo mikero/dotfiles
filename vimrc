@@ -54,7 +54,8 @@ set directory=$HOME/.vim/tmp//,.  " Keep swap files in one location
 
 set laststatus=2                  " Show the status line all the time
 " Useful status information at bottom of screen
-set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
+" set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
+set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{&ff}\ %=%-16(\ %l,%c-%v\ %)%P
 
 set expandtab
 set tabstop=2
@@ -62,22 +63,29 @@ set shiftwidth=2
 set softtabstop=2
 set autoindent
 " set smartindent
-set laststatus=2
 set showmatch
 set incsearch
 
 set cmdheight=2
 
-let mapleader=','
+au BufRead,BufNewFile *.iphtml set filetype=perl
 
-" bind control-l to hashrocket
+" map tab to control-n (autocomplete); second line overrides any plugins remapping the tab key
+" inoremap <Tab> <C-n>
+" au VimEnter * imap <Tab> <C-n>
+
+" map control-l to hashrocket
 imap <C-l> <Space>=><Space>
+
+let mapleader=','
 
 " run current file
 map <leader>r :! ./%<cr>
 
 " use tabular to align the equals operator
-map <leader>t :Tab /=<cr>
+map <leader>= :Tab /=<cr>
 
+" fast switching between files
+map <leader>, <C-^>
 
 
