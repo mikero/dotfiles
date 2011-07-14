@@ -8,9 +8,9 @@ set t_Co=256 " 256 colors
 let g:solarized_termtrans=1
 color solarized
 " colorscheme vividchalk
-" colorscheme ir_black
 " colorscheme topfunky-light
-" colorscheme grb256
+" colorscheme ir_black
+"colorscheme grb256
 
 filetype plugin indent on         " Turn on file type detection.
 
@@ -50,12 +50,13 @@ set visualbell                    " No beeping.
 
 set nobackup                      " Don't make a backup before overwriting a file.
 set nowritebackup                 " And again.
-set directory=$HOME/.vim/tmp//,.  " Keep swap files in one location
+set directory=/tmp                " Keep swap files in one location
 
 set laststatus=2                  " Show the status line all the time
 " Useful status information at bottom of screen
 " set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{exists('*CapsLockStatusline')?CapsLockStatusline():''}%=%-16(\ %l,%c-%v\ %)%P
 set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{&ff}\ %=%-16(\ %l,%c-%v\ %)%P
+:hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 
 set expandtab
 set tabstop=2
@@ -66,7 +67,11 @@ set autoindent
 set showmatch
 set incsearch
 
+" set cursorline
+
 set cmdheight=2
+
+set showtabline=2
 
 au BufRead,BufNewFile *.iphtml set filetype=perl
 
@@ -87,5 +92,20 @@ map <leader>= :Tab /=<cr>
 
 " fast switching between files
 map <leader>, <C-^>
+
+" go to routes file
+map <leader>gr :topleft :split config/routes.rb<cr>
+
+" go to Gemfile
+map <leader>gg :topleft 100 :split Gemfile<cr>
+
+" toggle line numbering
+map <leader>nn :set invnumber<CR>
+
+" vertical and horizontal split and jump to new buffer
+:noremap <leader>v :vsp^M^W^W<cr>
+:noremap <leader>h :split^M^W^W<cr>
+
+set shell=bash
 
 
