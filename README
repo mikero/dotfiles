@@ -9,7 +9,7 @@ Clone repository:
 
     git clone git://github.com/mikero/dotfiles.git
 
-Symlink to .vimrc and .vim:
+Symlink to .vimrc, .vim, .bashrc, and .gitconfig:
 
     ln -nfs ~/bin/dotfiles/vimrc ~/.vimrc
     ln -nfs ~/bin/dotfiles/vim ~/.vim
