@@ -2,7 +2,8 @@ Installation
 
 Create directory:
 
-    mkdir ~/bin/dotfiles/
+    mkdir ~/bin/
+    cd ~/bin/
 
 Clone repository:
 
@@ -12,4 +13,6 @@ Symlink to .vimrc and .vim:
 
     ln -nfs ~/bin/dotfiles/vimrc ~/.vimrc
     ln -nfs ~/bin/dotfiles/vim ~/.vim
+    ln -nfs ~/bin/dotfiles/bashrc ~/.bashrc
+    ln -nfs ~/bin/dotfiles/gitconfig ~/.gitconfig
 
