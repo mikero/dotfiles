@@ -1,5 +1,4 @@
 call pathogen#runtime_append_all_bundles()
-
 set nocompatible                  " Must come first because it changes other options.
 
 syntax enable                     " Turn on syntax highlighting.
@@ -10,7 +9,7 @@ color solarized
 " colorscheme vividchalk
 " colorscheme topfunky-light
 " colorscheme ir_black
-"colorscheme grb256
+colorscheme grb256
 
 filetype plugin indent on         " Turn on file type detection.
 
@@ -75,37 +74,6 @@ set showtabline=2
 
 au BufRead,BufNewFile *.iphtml set filetype=aspperl
 
-" map tab to control-n (autocomplete); second line overrides any plugins remapping the tab key
-" inoremap <Tab> <C-n>
-" au VimEnter * imap <Tab> <C-n>
-
-" map control-l to hashrocket
-imap <C-l> <Space>=><Space>
-
-let mapleader=','
-
-" run current file
-map <leader>r :! ./%<cr>
-
-" use tabular to align the equals operator
-map <leader>= :Tab /=<cr>
-
-" fast switching between files
-map <leader>, <C-^>
-
-" go to routes file
-map <leader>gr :topleft :split config/routes.rb<cr>
-
-" go to Gemfile
-map <leader>gg :topleft 100 :split Gemfile<cr>
-
-" toggle line numbering
-map <leader>nn :set invnumber<CR>
-
-" vertical and horizontal split and jump to new buffer
-:noremap <leader>v :vsp^M^W^W<cr>
-:noremap <leader>h :split^M^W^W<cr>
-
 function! RunTests(filename)
     " Write the file and run tests for the given filename
     :w
@@ -143,11 +111,43 @@ function! RunNearestTest()
     let spec_line_number = line('.')
     call RunTestFile(":" . spec_line_number)
 endfunction
+"
+" map tab to control-n (autocomplete); second line overrides any plugins remapping the tab key
+" inoremap <Tab> <C-n>
+" au VimEnter * imap <Tab> <C-n>
+
+" map control-l to hashrocket
+imap <C-l> <Space>=><Space>
+
+let mapleader=','
+
+map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+
+" run current file
+map <leader>r :! ./%<cr>
+
+" use tabular to align the equals operator
+map <leader>= :Tab /=<cr>
+
+" fast switching between files
+map <leader>, <C-^>
+
+" go to routes file
+map <leader>gr :topleft :split config/routes.rb<cr>
+
+" go to Gemfile
+map <leader>gg :topleft 100 :split Gemfile<cr>
+
+" toggle line numbering
+map <leader>nn :set invnumber<CR>
+
+" vertical and horizontal split and jump to new buffer
+:noremap <leader>v :vsp^M^W^W<cr>
+:noremap <leader>h :split^M^W^W<cr>
 
 map <leader>t :call RunTestFile()<cr>
 map <leader>T :call RunNearestTest()<cr>
 map <leader>a :call RunTests('spec')<cr>
-
 
 set shell=bash
 
