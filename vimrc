@@ -72,6 +72,8 @@ set cmdheight=2
 
 set showtabline=2
 
+set complete-=i  " turn off recursive search when autocompleting
+
 au BufRead,BufNewFile *.iphtml set filetype=aspperl
 
 function! RunTests(filename)
