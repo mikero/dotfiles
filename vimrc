@@ -3,6 +3,7 @@ set nocompatible                  " Must come first because it changes other opt
 
 syntax enable                     " Turn on syntax highlighting.
 set background=dark
+" set background=light
 set t_Co=256 " 256 colors
 let g:solarized_termtrans=1
 color solarized
@@ -72,16 +73,24 @@ set cmdheight=2
 
 set showtabline=2
 
+set complete-=i
+
 au BufRead,BufNewFile *.iphtml set filetype=aspperl
 
 function! RunTests(filename)
     " Write the file and run tests for the given filename
     :w
-    :silent !echo;echo;echo;echo;echo
-    if filereadable("script/test")
-        exec ":!script/test " . a:filename
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    if match(a:filename, '\.feature$') != -1
+        exec ":!bundle exec cucumber " . a:filename
     else
-        exec ":!bundle exec rspec " . a:filename
+        if filereadable("script/test")
+            exec ":!script/test " . a:filename
+        elseif filereadable("Gemfile")
+            exec ":!bundle exec rspec --color " . a:filename
+        else
+            exec ":!rspec --color " . a:filename
+        end
     end
 endfunction
 
@@ -98,8 +107,8 @@ function! RunTestFile(...)
     endif
 
     " Run the tests for the previously-marked file.
-    let in_spec_file = match(expand("%"), '_spec.rb$') != -1
-    if in_spec_file
+    let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\)$') != -1
+    if in_test_file
         call SetTestFile()
     elseif !exists("t:mhr_test_file")
         return
@@ -151,4 +160,5 @@ map <leader>a :call RunTests('spec')<cr>
 
 set shell=bash
 
+set clipboard=unnamed
 
