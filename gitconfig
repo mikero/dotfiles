@@ -18,3 +18,5 @@
 	excludesfile = ~/.gitignore
 [apply]
 	whitespace = nowarn
+[push]
+	default = current
