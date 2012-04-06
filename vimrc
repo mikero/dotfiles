@@ -77,12 +77,44 @@ set complete-=i  " turn off recursive search when autocompleting
 
 au BufRead,BufNewFile *.iphtml set filetype=aspperl
 
+augroup vimrcEx
+  " Clear all autocmds in the group
+  autocmd!
+  " Jump to last cursor position unless it's invalid or in an event handler
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+
+  " Indent p tags
+  autocmd FileType html,eruby if g:html_indent_tags !~ '\\|p\>' | let g:html_indent_tags .= '\|p\|li\|dt\|dd' | endif
+augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RENAME CURRENT FILE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'))
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map <leader>mm :call RenameFile()<cr>
+
 function! RunTests(filename)
     " Write the file and run tests for the given filename
     :w
     :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+    :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
     if match(a:filename, '\.feature$') != -1
-        exec ":!bundle exec cucumber " . a:filename
+        exec ":!script/features " . a:filename
     else
         if filereadable("script/test")
             exec ":!script/test " . a:filename
@@ -120,10 +152,10 @@ function! RunNearestTest()
     let spec_line_number = line('.')
     call RunTestFile(":" . spec_line_number)
 endfunction
-"
-" map tab to control-n (autocomplete); second line overrides any plugins remapping the tab key
-" inoremap <Tab> <C-n>
-" au VimEnter * imap <Tab> <C-n>
+
+map tab to control-n (autocomplete); second line overrides any plugins remapping the tab key
+inoremap <Tab> <C-n>
+au VimEnter * imap <Tab> <C-n>
 
 " map control-l to hashrocket
 imap <C-l> <Space>=><Space>
