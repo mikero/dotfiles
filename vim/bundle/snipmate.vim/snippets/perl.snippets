@@ -95,3 +95,60 @@ snippet cl
 snippet slurp
 	my $${1:var};
 	{ local $/ = undef; local *FILE; open FILE, "<${2:file}"; $$1 = <FILE>; close FILE }${3}
+
+# sql boilerplate
+snippet sql
+	my $${1:fieldname};
+	my $SQL = "select $1 from ${2:tablename} where ${3:id}=:$3";
+	my $sth = $dbh->prepare($SQL);
+	$sth->bind_param(':$3', $$3);
+	$sth->execute;
+	$sth->bind_columns(\($$1));
+	$sth->fetch;
+	$sth->finish;
+	${4:the_end}
+
+# sql insert boilerplate
+snippet sqlin
+	eval {
+	  my $SQL = <<"SQL";
+		insert into ${1:tablename}(${2:fieldnames})
+		values(:$2)
+	SQL
+	  my $sth = $dbh->prepare($SQL);
+	  $sth->bind_param(':$2', $$2);
+	  $sth->execute;
+	  $sth->finish;
+	};
+	if ($@) {
+	  $dbh->rollback;
+		die $dbh->errstr;
+	}
+	else {
+	  $dbh->commit;
+	}
+	${3:the_end}
+
+# sql update boilerplate
+snippet sqlup
+	eval {
+	  my $SQL = <<"SQL";
+		update ${1:tablename}
+		set ${2:fieldname}=:$2
+		where ${3:id}=:$3
+	SQL
+	  my $sth = $dbh->prepare($SQL);
+	  $sth->bind_param(':$2', $$2);
+	  $sth->bind_param(':$3', $$3);
+	  $sth->execute;
+	  $sth->finish;
+	};
+	if ($@) {
+	  $dbh->rollback;
+		die $dbh->errstr;
+	}
+	else {
+	  $dbh->commit;
+	}
+	${4:the_end}
+
