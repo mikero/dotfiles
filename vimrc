@@ -172,6 +172,9 @@ map <leader>= :Tab /=<cr>
 
 " fast switching between files
 map <leader>, <C-^>
+"
+" fast switching between windows
+map <leader>w <C-w><C-w>
 
 " go to routes file
 map <leader>gr :topleft :split config/routes.rb<cr>
