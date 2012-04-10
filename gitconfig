@@ -1,0 +1,22 @@
+[user]
+	name = Michael Roeser
+	email = mroeser@pobox.com
+[color]
+	status = auto
+	diff = auto
+	branch = auto
+[alias]
+	st = status
+	ci = commit
+	co = checkout
+      hist = log --pretty=format:\"%h %ai | %s%d [%an]\" --graph --date=short
+      type = cat-file -t
+      dump = cat-file -p
+[merge]
+	tool = changes
+[core]
+	excludesfile = ~/.gitignore
+[apply]
+	whitespace = nowarn
+[push]
+	default = current

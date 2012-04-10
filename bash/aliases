@@ -1,2 +1,2 @@
 alias lst='ls -lhrt|tail -25'
-alias vi='/usr/bin/vim'
+alias vi='/usr/local/bin/vim'
