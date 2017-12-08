@@ -1,6 +1,10 @@
 call pathogen#runtime_append_all_bundles()
 set nocompatible                  " Must come first because it changes other options.
 
+call plug#begin('~/.vim/plugged') " vim-plug
+Plug 'janko-m/vim-test'
+call plug#end()
+
 syntax enable                     " Turn on syntax highlighting.
 set background=dark
 " set background=light
@@ -39,7 +43,7 @@ set incsearch                     " Highlight matches as you type.
 set hlsearch                      " Highlight matches.
 
 " clear the search buffer when hitting return (grb)
-:nnoremap <CR> :nohlsearch<cr>    
+:nnoremap <CR> :nohlsearch<cr>
 
 set wrap                          " Turn on line wrapping.
 set scrolloff=3                   " Show 3 lines of context around the cursor.
@@ -119,9 +123,12 @@ function! RunTests(filename)
         if filereadable("script/test")
             exec ":!script/test " . a:filename
         elseif filereadable("Gemfile")
-            exec ":!bundle exec rspec --color " . a:filename
+            " exec ":!bundle exec rspec --color " . a:filename
+            exec ":!bundle exec ruby " . a:filename
         else
-            exec ":!rspec --color " . a:filename
+            " exec ":!rspec --color " . a:filename
+            " exec ":!ruby " . a:filename
+            exec ":!ruby -Ilib:test " . a:filename
         end
     end
 endfunction
@@ -139,7 +146,7 @@ function! RunTestFile(...)
     endif
 
     " Run the tests for the previously-marked file.
-    let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\)$') != -1
+    let in_test_file = match(expand("%"), '\(.feature\|_spec.rb|_test.rb\)$') != -1
     if in_test_file
         call SetTestFile()
     elseif !exists("t:mhr_test_file")
@@ -153,9 +160,9 @@ function! RunNearestTest()
     call RunTestFile(":" . spec_line_number)
 endfunction
 
-map tab to control-n (autocomplete); second line overrides any plugins remapping the tab key
-inoremap <Tab> <C-n>
-au VimEnter * imap <Tab> <C-n>
+" map tab to control-n (autocomplete); second line overrides any plugins remapping the tab key
+" inoremap <Tab> <C-n>
+" au VimEnter * imap <Tab> <C-n>
 
 " map control-l to hashrocket
 imap <C-l> <Space>=><Space>
@@ -189,11 +196,29 @@ map <leader>nn :set invnumber<CR>
 :noremap <leader>v :vsp^M^W^W<cr>
 :noremap <leader>h :split^M^W^W<cr>
 
-map <leader>t :call RunTestFile()<cr>
-map <leader>T :call RunNearestTest()<cr>
-map <leader>a :call RunTests('spec')<cr>
+" map <leader>t :call RunTestFile()<cr>
+" map <leader>T :call RunNearestTest()<cr>
+" map <leader>a :call RunTests('spec')<cr>
+" map <leader>a :call RunTests('ruby')<cr>
+" map <leader>a :call RunTests('bundle exec rake')<cr>
+
+" vim-test
+nnoremap <leader>ta :TestSuite<cr>
+nnoremap <leader>tf :TestFile<cr>
+nnoremap <leader>tn :TestNearest<cr>
+nnoremap <leader>tt :TestLast<cr>
 
 set shell=bash
 
-set clipboard=unnamed
+" set clipboard=unnamed
+set wildignore+=app/assets/posters/**
+
+" highlight extra whitespaces
+" (http://vim.wikia.com/wiki/Highlight_unwanted_spaces)
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
