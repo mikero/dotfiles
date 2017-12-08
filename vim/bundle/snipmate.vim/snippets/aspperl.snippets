@@ -132,7 +132,7 @@ snippet sqlin
 # sql update boilerplate
 snippet sqlup
 	eval {
-	  my $SQL = <<"SQL";
+	  my $SQL = "SQL";
 		update ${1:tablename}
 		set ${2:fieldname}=:$2
 		where ${3:id}=:$3
@@ -150,3 +150,5 @@ snippet sqlup
 	else {
 	  $dbh->commit;
 	}
+	${4:the_end}
+
