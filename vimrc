@@ -210,8 +210,7 @@ nnoremap <leader>tt :TestLast<cr>
 
 set shell=bash
 
-" set clipboard=unnamed
-set wildignore+=app/assets/posters/**
+set clipboard=unnamed
 
 " highlight extra whitespaces
 " (http://vim.wikia.com/wiki/Highlight_unwanted_spaces)
@@ -222,3 +221,17 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
+" paste buffer on server back to os x
+function! PropagatePasteBufferToOSX()
+  let @n=getreg("*")
+  call system('pbcopy-remote', @n)
+  echo "done"
+endfunction
+
+function! PopulatePasteBufferFromOSX()
+  let @+ = system('pbpaste-remote')
+  echo "done"
+endfunction
+
+nnoremap <leader>6 :call PopulatePasteBufferFromOSX()<cr>
+nnoremap <leader>7 :call PropagatePasteBufferToOSX()<cr>
