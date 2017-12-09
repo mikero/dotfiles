@@ -17,6 +17,8 @@ color solarized
 " colorscheme ir_black
 colorscheme grb256
 
+let g:airline_theme='molokai'
+
 filetype plugin indent on         " Turn on file type detection.
 
 runtime macros/matchit.vim        " Load the matchit plugin.
