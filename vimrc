@@ -3,6 +3,7 @@ set nocompatible                  " Must come first because it changes other opt
 
 call plug#begin('~/.vim/plugged') " vim-plug
 Plug 'janko-m/vim-test'
+Plug 'vim-airline/vim-airline'
 call plug#end()
 
 syntax enable                     " Turn on syntax highlighting.
