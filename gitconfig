@@ -20,6 +20,8 @@
 	whitespace = nowarn
 [push]
 	default = current
+[init]
+        defaultBranch = main
 [filter "media"]
 	required = true
 	clean = git media clean %f
