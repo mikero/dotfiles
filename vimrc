@@ -5,6 +5,7 @@ call plug#begin('~/.vim/plugged') " vim-plug
 Plug 'janko-m/vim-test'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'mechatroner/rainbow_csv'
 call plug#end()
 
 syntax enable                     " Turn on syntax highlighting.
