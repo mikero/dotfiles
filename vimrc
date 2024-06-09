@@ -80,6 +80,7 @@ set statusline=[%n]\ %<%.99f\ %h%w%m%r%y\ %{&ff}\ %=%-16(\ %l,%c-%v\ %)%P
 set expandtab
 set tabstop=2
 set shiftwidth=2
+set shiftround
 set softtabstop=2
 set autoindent
 " set smartindent
