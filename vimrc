@@ -240,7 +240,7 @@ autocmd BufWinLeave * call clearmatches()
 " enable list mode
 set list
 " display chars for tabs and trailing spaces
-set listchars=tab:> ,trail:-
+set listchars=tab:>-,trail:-
 
 " paste buffer on server back to os x
 function! PropagatePasteBufferToOSX()
