@@ -237,6 +237,11 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
+" enable list mode
+set list
+" display chars for tabs and trailing spaces
+set listchars=tab:> ,trail:-
+
 " paste buffer on server back to os x
 function! PropagatePasteBufferToOSX()
   let @n=getreg("*")
